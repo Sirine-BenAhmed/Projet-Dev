@@ -17,9 +17,7 @@ build/
 #.idea/workspace.xml
 #.idea/libraries
 #.idea/inspectionProfiles/
-#.idea/vcs.xml
-
-
+#.idea/vcs.xmls
 
 #pour Eclipse
 .project
