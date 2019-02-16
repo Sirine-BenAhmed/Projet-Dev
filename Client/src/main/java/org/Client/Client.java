@@ -1,37 +1,63 @@
 package org.Client;
 
-import com.corundumstudio.socketio.AckRequest;
-import com.corundumstudio.socketio.Configuration;
-import com.corundumstudio.socketio.SocketIOClient;
-import com.corundumstudio.socketio.SocketIOServer;
-import com.corundumstudio.socketio.listener.ConnectListener;
-import com.corundumstudio.socketio.listener.DataListener;
-
+import io.socket.client.IO;
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
-/**
- * attend une connexion, on envoie une question puis on attend une réponse, jusqu'à la découverte de la bonne réponse
- * le client s'identifie (som, niveau)
- */
-public class Serveur {
+public class Client {
 
-  SocketIOServer serveur;
+  // Objet de synchro
+  final Object attenteDéconnexion = new Object();
+  Socket connexion;
+
+  public Client(String urlServeur) {
+
+    try {
+      connexion = IO.socket(urlServeur);
+
+      System.out.println("[CLIENT " + connexion.id() + "] Je prépare mes écouteurs");
+
+      connexion.on("connect", new Emitter.Listener() {
+        @Override
+        public void call(Object... objects) {
+          System.out.println("[CLIENT " + connexion.id() + "] Youpi ! Je suis connecté au serveur");
+
+        }
+      });
+
+      connexion.on("disconnect", new Emitter.Listener() {
+        @Override
+        public void call(Object... objects) {
+          System.out.println("[CLIENT " + connexion.id() + "] Je me suis fait déconnecté");
+          connexion.disconnect();
+          connexion.close();
+
+          synchronized (attenteDéconnexion) {
+            attenteDéconnexion.notify();
+          }
+        }
+      });
 
 
-  public Serveur(Configuration config) {
-    // creation du serveur
-    serveur = new SocketIOServer(config);
 
-    System.out.println("[SERVEUR] Création des écouteurs d'évenements");
 
-    // on accept une connexion
-    serveur.addConnectListener(new ConnectListener() {
-      public void onConnect(SocketIOClient client) {
-        System.out.println("[SERVEUR] Un nouveau client s'est conencté. Bienvenu " + client.getSessionId());
-      }
-    });
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+
+  public Client() {
+
 
   }
 
@@ -42,20 +68,24 @@ public class Serveur {
       e.printStackTrace();
     }
 
-    Configuration config = new Configuration();
-    config.setHostname("127.0.0.1");
-    config.setPort(1234);
-
-
-    Serveur serveur = new Serveur(config);
-    serveur.run();
+    Client client = new Client("http://127.0.0.1:8080");
+    client.seConnecter();
 
   }
 
-  private void run() {
+  private void seConnecter() {
+    // on se connecte
+    connexion.connect();
 
-    serveur.start();
-    System.out.println("[SERVEUR] Serveur démarré, en attente des clients pour se connecter.");
+    System.out.println("[CLIENT " + connexion.id() + "] En attente de déconnexion");
+    synchronized (attenteDéconnexion) {
+      try {
+        attenteDéconnexion.wait();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+        System.err.println("[CLIENT " + connexion.id() + "] Erreur dans l'attente");
+      }
+    }
   }
 
 
