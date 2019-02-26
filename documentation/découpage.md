@@ -1,20 +1,20 @@
-########################### DÈcoupage
+########################### D√©coupage
 
 #####Livraison 1
 Au bout de la livraison 1 :
-----> Cartes dÈfinies
-----> Merveilles dÈfinies
+----> Cartes d√©finies
+----> Merveilles d√©finies
 ---->  CLIENT SERVEUR QUI NE MARCHE PAS
 
 
 #####Livraison 2
 
------> Distribuer 7 cartes pour 3 joueurs
+-----> Distribuer 7 cartes pour 4 joueurs
 
 
 #####Livraison 3
 
-----> Choix d'une carte et la dÈposer
+----> Choix d'une carte et la d√©poser
 ----> Faire tourner la main
 
 
@@ -26,7 +26,7 @@ Au bout de la livraison 1 :
 #####Livraison 5
 
 ------> Ajout des ressources
-------> DÈfossage de carte
+------> D√©fossage de carte
 
 
 #####Livraison 6
@@ -39,4 +39,4 @@ Au bout de la livraison 1 :
 #####Livraison 7
 
 -----> Construction merveille
------> Construction b‚timents (tous deux en fonction des ressources)
+-----> Construction b√¢timents (tous deux en fonction des ressources)
