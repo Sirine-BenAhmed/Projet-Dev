@@ -120,28 +120,12 @@ public class Partie {
 
         // création des cartes initiales
         Main[] mains = new Main[CONFIG.NB_JOUEURS];
-        Carte[] card = new  Carte[8];
-        card[0] = new Carte("Theatre");
-		
-		card[1] = new Carte("Autel");
-		
-		card[2] = new Carte("Bains");
-		
-		card[3] = new Carte("Bains");
-		
-		card[4] = new Carte("Preteur sur gages");
-
-		card[5] = new Carte("Preteur sur gages");
-		
-		card[6] = new Carte("Bassin argileux");
-		
-		card[7] = new Carte("Bassin argileux");
-
+        
         for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
             mains[i] = new Main();
-            for(int j = 0 ; j < 7; j++) {
-                mains[i].ajouterCarte(new Carte(i+"-"+j));
-//                  mains[i].ajouterCarte(card[i]);
+            for(int j = 0 ; j < 8; j++) {
+                mains[i].ajouterCarte(mains[i].getCartes().get(j));
+                
             }
             // association main initiale - joueur
             participants.get(i).setMain(mains[i]);
