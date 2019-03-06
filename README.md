@@ -24,5 +24,5 @@ BOUREK kamel , BENAHMED Sirine , TRAORE Mohamed
   
   https://github.com/Sirine-BenAhmed/Projet-Dev/commit/faeb07d8ad0c3fb1f94c43851469de0532aa61d9
   
-  * Adaptation de l'exemple du prof avec des vrais noms de marveilles.
+  * Adaptation de l'exemple du prof avec des vrais noms de merveilles.
    
