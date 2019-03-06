@@ -19,3 +19,7 @@ Pour régner en maître, les joueurs devront établir une stratégie et composer
 # Equipe :
 
 BOUREK kamel , BENAHMED Sirine , TRAORE Mohamed
+
+* Crèation des vrais noms de merveilles 
+  
+  faeb07d8ad0c3fb1f94c43851469de0532aa61d9
