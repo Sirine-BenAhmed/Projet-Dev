@@ -76,14 +76,25 @@ public class Partie {
             public void onData(SocketIOClient socketIOClient, Carte carte, AckRequest ackRequest) throws Exception {
                 // retrouver le participant
                 Participant p = retrouveParticipant(socketIOClient);
+                
                 if (p != null) {
                     System.out.println("serveur > "+p+" a joue "+carte);
                     // puis lui supprimer de sa main la carte jouée
                     p.getMain().getCartes().remove(carte);
                     System.out.println("serveur > il reste a "+p+" les cartes "+p.getMain().getCartes());
+<<<<<<< HEAD
                     p.setAjoue(true);
                     if (tousIndentifiés()){
                     }
+=======
+                    int participantsIndex =(participants.indexOf(p) + 1) % participants.size();
+                    Participant voisin = participants.get(participantsIndex);
+                    voisin.setMain(p.getMain());
+                    System.out.println("serveur > Je suis "+voisin+" j'ai recuperé la main de "+p+" qui contient les cartes"+p.getMain().getCartes());
+                    
+                    
+
+>>>>>>> a67e209a77bea17cbdd536072ea2b418ec600e6d
                     // etc.
                 }
             }
@@ -91,7 +102,7 @@ public class Partie {
     }
 
     private void débuterLeJeu() {
-        // création des merveilles, au début de simple nom
+        // création des merveilles, au début de simples noms
         Merveille[] merveilles = new Merveille[CONFIG.NB_JOUEURS];
         
         merveilles[0] = new Merveille("Babylon");//(name, side)
@@ -150,10 +161,10 @@ public class Partie {
         
         for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
             mains[i] = new Main();
-            for(int j = 0 ; j < 8; j++) {
-                mains[i].ajouterCarte(mains[i].getCartes().get(j));
-                
-            }
+         //   for(int j = 0 ; j < 8; j++) {
+         //       mains[i].ajouterCarte(mains[i].getCartes().get(j));
+         //       
+         //   }
             // association main initiale - joueur
             participants.get(i).setMain(mains[i]);
             // envoi de la main au joueur

@@ -1,6 +1,7 @@
 package donnees;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
 
@@ -62,6 +63,8 @@ public class Main {
     	cartes.add(carte13);
     	cartes.add(carte14);
     	*/
+    	
+    	Collections.shuffle(cartes);
     	
     }
     public Main(ArrayList<Carte> cartes) {

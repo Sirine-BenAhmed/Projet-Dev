@@ -8,32 +8,42 @@ Au bout de la livraison 1 :
 
 
 #####Livraison 2
-
------> Distribuer 7 cartes pour 3 joueurs
+Au bout de la livraison 2 :
+-----> Pas de livraison 2
 
 
 #####Livraison 3
-
-----> Choix d'une carte et la déposer
-----> Faire tourner la main
+Au bout de la livraison 3 :
+----> Client Serveur défini
+----> Joueurs définis
+----> Cartes définies
+----> Merveilles définies
+----> Un tour joué mais pas de passage de main au joueur voisin
 
 
 #####Livraison 4
+Au bout de la livraison 4:
 
------> Comptage des points
+------> En tant que joueur, je passe ma main à mon voisin
+
 
 
 #####Livraison 5
-
-------> Ajout des ressources
-------> Défossage de carte
+------> En tant que joueur, j'ai 3 écus en début de partie
+------> En tant que joueur, je peux défosser une carte
+------> En tant que joueur, je reçois 3 écus en défossant une carte
+------> En tant que joueur, je possède une ressource grâce à mon plateau merveille
+------> En tant que joueur, le nombre d'écus que je possède me rapporte des points
+------> En tant que joueur, les bâtiments civils que je possède me rapportent des points
 
 
 #####Livraison 6
 
-------> Distribution cartes merveilles 
-------> Attribution du plateau merveille
-
+------> Conflits militaires
+------> Echange de ressources
+------> Points accordés par les bâtiments scientifiques (famille de symboles identiques)
+------> Points accordés par les bâtiments scientifiques (famille de symboles différents)
+------> Points accordés par les bâtiments commerciaux
 
 
 #####Livraison 7
