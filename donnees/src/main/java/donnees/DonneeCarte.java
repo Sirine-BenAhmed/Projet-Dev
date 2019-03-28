@@ -2,6 +2,7 @@ package donnees;
 
 import java.util.ArrayList;
 
+// création d'une classe donneeCartes pour controler les cartes
 public class DonneeCarte {
     ArrayList<Carte> mesCartes;
     //création des cartes marrons de l'age 1
@@ -155,7 +156,7 @@ public class DonneeCarte {
         mesCartes.add(carte48);
         mesCartes.add(carte49);
     }
-
+    // methode pour récuperer les cartes 
     public ArrayList<Carte> getMesCartes() {
         return mesCartes;
     }

@@ -117,7 +117,7 @@ public class Partie {
 //		
 //		merveilles[6] = new Merveille("Ephesus");
 
-
+        // instanciation des données de cartes
         DonneeCarte donneeCarte = new DonneeCarte();
         System.out.println("-------------------------------------------------------------------------------------------");
         System.out.println("------------------------------------ DEBUT DU JEU------------------------------------------");
@@ -137,7 +137,7 @@ public class Partie {
             // envoi de la merveille au joueur
             participants.get(i).getSocket().sendEvent(MESSAGES.ENVOI_DE_MERVEILLE, merveilles[i]);
         }
-
+        // random pour tiré des cartes aléatoire pour 7 cartes par joueurs  ====> issue N°#47
         for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
             Main main = new Main();
             for(int j=0; j<7; j++){
@@ -187,7 +187,7 @@ public class Partie {
         serveur.start();
     }
 
-    // cette fonction va permettre le passage de main entre les voisins
+    //
 
     private void changerMains(){
         Main main_precedente = participants.get(0).getMain();
