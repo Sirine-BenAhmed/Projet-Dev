@@ -156,7 +156,7 @@ public class DonneeCarte {
         mesCartes.add(carte48);
         mesCartes.add(carte49);
     }
-    // methode pour récuperer les cartes 
+    // methode pour récuperer les cartes
     public ArrayList<Carte> getMesCartes() {
         return mesCartes;
     }

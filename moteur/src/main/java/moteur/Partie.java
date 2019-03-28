@@ -187,7 +187,7 @@ public class Partie {
         serveur.start();
     }
 
-    //
+    // passage de carte avec une carte en moins ===> issue N° 49
 
     private void changerMains(){
         Main main_precedente = participants.get(0).getMain();
@@ -203,7 +203,7 @@ public class Partie {
         }
     }
 
-    // pour verifier si le participant à joué
+    // pour verifier avant le nouveau tour de jeu
     private void prepareNouveauTours(){
         for (Participant p : participants){
             p.setAjoue(false);
