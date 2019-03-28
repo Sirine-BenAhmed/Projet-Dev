@@ -4,6 +4,8 @@ import com.corundumstudio.socketio.SocketIOClient;
 import donnees.Main;
 import donnees.Merveille;
 
+import java.util.ArrayList;
+
 
 public class Participant {
 
@@ -11,6 +13,16 @@ public class Participant {
     private String nom;
     private Merveille merveille;
     private Main main;
+    private boolean Ajoue ;
+
+
+    public boolean isAjoue() {
+        return Ajoue;
+    }
+
+    public void setAjoue(boolean ajoue) {
+        Ajoue = ajoue;
+    }
 
 
     public Participant(SocketIOClient socketIOClient) {

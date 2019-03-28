@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Main {
 
     private ArrayList<Carte> cartes ;
-    
+    /*
   //création des cartes marrons de l'age 1
     Carte carte1 = new Carte("Chantier");
     
@@ -34,7 +34,7 @@ public class Main {
 	Carte carte13 = new Carte("Briqueterie");
 	
 	Carte carte14 = new Carte("Fonderie");
-	
+	*/
 
     public ArrayList<Carte> getCartes() {
         return cartes;
@@ -46,6 +46,7 @@ public class Main {
 
     public Main() {
     	cartes = new ArrayList<>();
+    	/*
     	cartes.add(carte1);
     	cartes.add(carte2);
     	cartes.add(carte3);
@@ -60,6 +61,7 @@ public class Main {
     	cartes.add(carte12);
     	cartes.add(carte13);
     	cartes.add(carte14);
+    	*/
     	
     }
     public Main(ArrayList<Carte> cartes) {

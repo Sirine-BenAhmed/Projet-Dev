@@ -9,6 +9,7 @@ import com.corundumstudio.socketio.listener.DataListener;
 import config.CONFIG;
 import config.MESSAGES;
 import donnees.Carte;
+import donnees.DonneeCarte;
 import donnees.Main;
 import donnees.Merveille;
 
@@ -31,9 +32,13 @@ public class Partie {
         participants = new ArrayList<>();
 
         // abonnement aux connexions
+
         serveur.addConnectListener(new ConnectListener() {
+
             @Override
             public void onConnect(SocketIOClient socketIOClient) {
+
+
                 System.out.println("serveur > connexion de "+socketIOClient.getRemoteAddress());
                 System.out.println("serveur > connexion de "+socketIOClient);
 
@@ -76,7 +81,9 @@ public class Partie {
                     // puis lui supprimer de sa main la carte jouée
                     p.getMain().getCartes().remove(carte);
                     System.out.println("serveur > il reste a "+p+" les cartes "+p.getMain().getCartes());
-
+                    p.setAjoue(true);
+                    if (tousIndentifiés()){
+                    }
                     // etc.
                 }
             }
@@ -106,6 +113,15 @@ public class Partie {
 //		
 //		merveilles[6] = new Merveille("Ephesus");
 
+
+        DonneeCarte donneeCarte = new DonneeCarte();
+        System.out.println("-------------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------ DEBUT DU JEU------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------------");
+
+        System.out.println("-------------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------ENVOIE DES MERVEILLES---------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------------");
         for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
         	
 //           merveilles[i] = new Merveille("merveille"+i);
@@ -118,6 +134,17 @@ public class Partie {
             participants.get(i).getSocket().sendEvent(MESSAGES.ENVOI_DE_MERVEILLE, merveilles[i]);
         }
 
+        for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
+            Main main = new Main();
+            for(int j=0; j<7; j++){
+                int aleatoire = (int)(Math.random()*donneeCarte.getMesCartes().size());
+                main.ajouterCarte(donneeCarte.getMesCartes().get(aleatoire));
+                donneeCarte.getMesCartes().remove(aleatoire);
+            }
+            participants.get(i).setMain(main);
+            participants.get(i).getSocket().sendEvent(MESSAGES.ENVOI_DE_MAIN, main);
+        }
+        /*
         // création des cartes initiales
         Main[] mains = new Main[CONFIG.NB_JOUEURS];
         
@@ -133,6 +160,7 @@ public class Partie {
             participants.get(i).getSocket().sendEvent(MESSAGES.ENVOI_DE_MAIN, mains[i]);
 
         }
+        */
 
     }
 
