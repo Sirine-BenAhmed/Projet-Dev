@@ -61,7 +61,6 @@ public class Partie {
                 if (p != null) {
                     p.setNom(s);
                     System.out.println("serveur > identification de "+p.getNom()+" ("+socketIOClient.getRemoteAddress()+")");
-
                     if (tousIndentifiés()) {
                         débuterLeJeu();
                     }
@@ -84,17 +83,11 @@ public class Partie {
                     System.out.println("serveur > il reste a "+p+" les cartes "+p.getMain().getCartes());
 
                     p.setAjoue(true);
-                    if (tousIndentifiés()){
+                    // on change la mains si tous joueurs ont joués
+                    if (tousJoues()){
                         changerMains();
                         prepareNouveauTours();
                     }
-
-                    int participantsIndex =(participants.indexOf(p) + 1) % participants.size();
-                    Participant voisin = participants.get(participantsIndex);
-                    voisin.setMain(p.getMain());
-                    System.out.println("serveur > Je suis "+voisin+" j'ai recuperé la main de "+p+" qui contient les cartes"+p.getMain().getCartes());
-                    
-                    
                     // etc.
                 }
             }
@@ -109,14 +102,11 @@ public class Partie {
 		merveilles[2] = new Merveille("Halicarnassus");
 		merveilles[3] = new Merveille("Giza");
 
-//		merveilles[4] = new Merveille("Alexandria");
-//
-//
-//		merveilles[5] = new Merveille("Olympia");
-//
-//		
-//		merveilles[6] = new Merveille("Ephesus");
-
+		/*
+		merveilles[4] = new Merveille("Alexandria");
+		merveilles[5] = new Merveille("Olympia");
+		merveilles[6] = new Merveille("Ephesus");
+        */
         // instanciation des données de cartes
         DonneeCarte donneeCarte = new DonneeCarte();
         System.out.println("-------------------------------------------------------------------------------------------");
@@ -127,9 +117,9 @@ public class Partie {
         System.out.println("------------------------------------ENVOIE DES MERVEILLES---------------------------------");
         System.out.println("-------------------------------------------------------------------------------------------");
         for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
-        	
+
 //           merveilles[i] = new Merveille("merveille"+i);
-        	
+
             // association joueur - merveille
             participants.get(i).setMerveille(merveilles[i]);
             System.out.println("serveur > envoie a "+participants.get(i)+" sa merveille "+merveilles[i]);
@@ -137,34 +127,21 @@ public class Partie {
             // envoi de la merveille au joueur
             participants.get(i).getSocket().sendEvent(MESSAGES.ENVOI_DE_MERVEILLE, merveilles[i]);
         }
-        // random pour tiré des cartes aléatoire pour 7 cartes par joueurs  ====> issue N°#47
-        for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
-            Main main = new Main();
-            for(int j=0; j<7; j++){
-                int aleatoire = (int)(Math.random()*donneeCarte.getMesCartes().size());
-                main.ajouterCarte(donneeCarte.getMesCartes().get(aleatoire));
-                donneeCarte.getMesCartes().remove(aleatoire);
-            }
-            participants.get(i).setMain(main);
-            participants.get(i).getSocket().sendEvent(MESSAGES.ENVOI_DE_MAIN, main);
-        }
-        /*
-        // création des cartes initiales
-        Main[] mains = new Main[CONFIG.NB_JOUEURS];
-        
-        for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
-            mains[i] = new Main();
-         //   for(int j = 0 ; j < 8; j++) {
-         //       mains[i].ajouterCarte(mains[i].getCartes().get(j));
-         //       
-         //   }
-            // association main initiale - joueur
-            participants.get(i).setMain(mains[i]);
-            // envoi de la main au joueur
-            participants.get(i).getSocket().sendEvent(MESSAGES.ENVOI_DE_MAIN, mains[i]);
 
+        if(tousRecusMerveille()){
+            // random pour tiré des cartes aléatoire pour 7 cartes par joueurs  ====> issue N°#47
+            for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
+                Main main = new Main();
+                for(int j=0; j<7; j++){
+                    int aleatoire = (int)(Math.random()*donneeCarte.getMesCartes().size());
+                    main.ajouterCarte(donneeCarte.getMesCartes().get(aleatoire));
+                    donneeCarte.getMesCartes().remove(aleatoire);
+                }
+                participants.get(i).setMain(main);
+                participants.get(i).getSocket().sendEvent(MESSAGES.ENVOI_DE_MAIN, main);
+            }
         }
-        */
+
 
     }
 
@@ -173,6 +150,45 @@ public class Partie {
         for(Participant p : participants) {
             // pas nom, pas identifié
             if (p.getNom() == null) {
+                resultat = false;
+                break;
+            }
+        }
+
+        return resultat;
+    }
+    // permet de verifier si tous les joueurs ont joués
+    private boolean tousJoues() {
+        boolean resultat = true;
+        for(Participant p : participants) {
+            // pas joués, sort de la boucle
+            if (!p.isAjoue()) {
+                resultat = false;
+                break;
+            }
+        }
+
+        return resultat;
+    }
+    // permet de verifier si tous les joueurs ont récuperés leurs mains
+    private boolean tousRecusMerveille() {
+        boolean resultat = true;
+        for(Participant p : participants) {
+            // pas reçu de merveille, sort de la boucle
+            if (p.getMerveille() == null) {
+                resultat = false;
+                break;
+            }
+        }
+
+        return resultat;
+    }
+    // verifier si tous ont récu leurs mains
+    private boolean tousRecusMain() {
+        boolean resultat = true;
+        for(Participant p : participants) {
+            // pas reçu de main, sort de la boucle
+            if (p.getMain() == null) {
                 resultat = false;
                 break;
             }
@@ -190,16 +206,26 @@ public class Partie {
     // passage de carte avec une carte en moins ===> issue N° 49
 
     private void changerMains(){
-        Main main_precedente = participants.get(0).getMain();
-        for (int i=1 ; i<participants.size(); i++){
-            Main main = participants.get(i).getMain();
-            participants.get(i).setMain(main_precedente);
-            main_precedente = main;
+
+        for (int i=0 ; i<participants.size(); i++){
+            participants.get(i).setMainPrecedente(participants.get(i).getMain());
         }
-        participants.get(0).setMain(main_precedente);
-        System.out.println("serveur > Les mains ont été échangées");
-        for (Participant p : participants){
-            System.out.println("serveur > " +p.getNom() + " j'ai réçu " + p.getMain());
+
+        System.out.println("-------------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------SERVEUR > LES MAINS ONT ETE CHANGEES---------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------------");
+
+
+
+        for (int i=0 ; i<participants.size(); i++){
+            if((i+1)==participants.size()){
+                participants.get(i).setMain(participants.get(0).getMainPrecedente());
+                System.out.println("serveur > Je suis "+participants.get(i).getNom()+" j'ai recuperé la main de "+participants.get(0).getNom()+" qui contient les cartes"+participants.get(0).getMainPrecedente().getCartes());
+            }
+            else{
+                participants.get(i).setMain(participants.get(i+1).getMainPrecedente());
+                System.out.println("serveur > Je suis "+participants.get(i).getNom()+" j'ai recuperé la main de "+participants.get(i+1).getNom()+" qui contient les cartes"+participants.get(i+1).getMainPrecedente().getCartes());
+            }
         }
     }
 
@@ -229,9 +255,10 @@ public class Partie {
     }
 
 
-
+/*
     public static final void main(String  [] args) {
         Partie p = new Partie();
         p.démarrer();
     }
+    */
 }

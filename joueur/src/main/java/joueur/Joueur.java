@@ -159,11 +159,12 @@ public class Joueur {
         return nom;
     }
 
-
+/*
     public static final void main(String  [] args) {
         Joueur j = new Joueur("toto");
         j.démarrer();
     }
+*/
 
     public void setMerveille(Merveille merveille) {
         this.merveille = merveille;

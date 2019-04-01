@@ -5,107 +5,112 @@ import java.util.ArrayList;
 // création d'une classe donneeCartes pour controler les cartes
 public class DonneeCarte {
     ArrayList<Carte> mesCartes;
-    //création des cartes marrons de l'age 1
-    Carte carte1 = new Carte("Chantier");
 
-    Carte carte2 = new Carte("Cavite");
-
-    Carte carte3 = new Carte("Bassin-Argileux");
-
-    Carte carte4 = new Carte("Filon");
-
-    Carte carte5 = new Carte("Friche");
-
-    Carte carte6 = new Carte("Excavation");
-
-    Carte carte7 = new Carte("Fosse-Argileuse");
-
-    Carte carte8 = new Carte("Exploitation-Forestiere");
-
-    Carte carte9 = new Carte("Gisement");
-
-    Carte carte10 = new Carte("Mine");
-
-    Carte carte11 = new Carte("Métier-à-Tisser");
-
-    Carte carte12 = new Carte("Verrerie");
-
-    Carte carte13 = new Carte("Presse");
-
-    Carte carte14 = new Carte("Prêteur-sur-Caces");
-
-    Carte carte15 = new Carte("Bains");
-
-    Carte carte16 = new Carte("Autel");
-
-    Carte carte17 = new Carte("Théatre");
-
-    Carte carte18 = new Carte("Taverne");
-
-    Carte carte19 = new Carte("Comptoire-Est");
-
-    Carte carte20 = new Carte("Comptoire-Ouest");
-
-    Carte carte21 = new Carte("Marché");
-
-    Carte carte22 = new Carte("Palissade");
-
-    Carte carte23= new Carte("Caserne");
-
-    Carte carte24 = new Carte("Tour-De-Garde");
-
-    Carte carte25 = new Carte("Officine");
-
-    Carte carte26 = new Carte("Atelier");
-
-    Carte carte27 = new Carte("Scriptorium");
-
-    Carte carte28 = new Carte("Fonderie");
-
-    Carte carte29 = new Carte("Chantier");
-
-    Carte carte30 = new Carte("Cavite");
-
-    Carte carte31 = new Carte("bassin-Argileux");
-
-    Carte carte32 = new Carte("Filon");
-
-    Carte carte33 = new Carte("Friche");
-
-    Carte carte34 = new Carte("Excavation");
-
-    Carte carte35 = new Carte("Fosse-Argileuse");
-
-    Carte carte36 = new Carte("Exploitation-Forestiere");
-
-    Carte carte37 = new Carte("Gisement");
-
-    Carte carte38 = new Carte("Mine");
-
-    Carte carte39 = new Carte("Scierie");
-
-    Carte carte40 = new Carte("Carriere");
-
-    Carte carte41 = new Carte("Briqueterie");
-
-    Carte carte42 = new Carte("Fonderie");
-
-    Carte carte43 = new Carte("Exploitation-Forestiere");
-
-    Carte carte44 = new Carte("Gisement");
-
-    Carte carte45 = new Carte("Mine");
-
-    Carte carte46 = new Carte("Scierie");
-
-    Carte carte47 = new Carte("Carriere");
-
-    Carte carte48 = new Carte("Briqueterie");
-
-    Carte carte49 = new Carte("Fonderie");
 
     public DonneeCarte(){
         mesCartes = new ArrayList<>();
+
+
+        //création des cartes marrons de l'age 1
+        Carte carte1 = new Carte("Chantier");
+
+        Carte carte2 = new Carte("Cavite");
+
+        Carte carte3 = new Carte("Bassin-Argileux");
+
+        Carte carte4 = new Carte("Filon");
+
+        Carte carte5 = new Carte("Friche");
+
+        Carte carte6 = new Carte("Excavation");
+
+        Carte carte7 = new Carte("Fosse-Argileuse");
+
+        Carte carte8 = new Carte("Exploitation-Forestiere");
+
+        Carte carte9 = new Carte("Gisement");
+
+        Carte carte10 = new Carte("Mine");
+
+        Carte carte11 = new Carte("Métier-à-Tisser");
+
+        Carte carte12 = new Carte("Verrerie");
+
+        Carte carte13 = new Carte("Presse");
+
+        Carte carte14 = new Carte("Prêteur-sur-Caces");
+
+        Carte carte15 = new Carte("Bains");
+
+        Carte carte16 = new Carte("Autel");
+
+        Carte carte17 = new Carte("Théatre");
+
+        Carte carte18 = new Carte("Taverne");
+
+        Carte carte19 = new Carte("Comptoire-Est");
+
+        Carte carte20 = new Carte("Comptoire-Ouest");
+
+        Carte carte21 = new Carte("Marché");
+
+        Carte carte22 = new Carte("Palissade");
+
+        Carte carte23= new Carte("Caserne");
+
+        Carte carte24 = new Carte("Tour-De-Garde");
+
+        Carte carte25 = new Carte("Officine");
+
+        Carte carte26 = new Carte("Atelier");
+
+        Carte carte27 = new Carte("Scriptorium");
+
+        Carte carte28 = new Carte("Fonderie");
+
+        Carte carte29 = new Carte("Chantier");
+
+        Carte carte30 = new Carte("Cavite");
+
+        Carte carte31 = new Carte("bassin-Argileux");
+
+        Carte carte32 = new Carte("Filon");
+
+        Carte carte33 = new Carte("Friche");
+
+        Carte carte34 = new Carte("Excavation");
+
+        Carte carte35 = new Carte("Fosse-Argileuse");
+
+        Carte carte36 = new Carte("Exploitation-Forestiere");
+
+        Carte carte37 = new Carte("Gisement");
+
+        Carte carte38 = new Carte("Mine");
+
+        Carte carte39 = new Carte("Scierie");
+
+        Carte carte40 = new Carte("Carriere");
+
+        Carte carte41 = new Carte("Briqueterie");
+
+        Carte carte42 = new Carte("Fonderie");
+
+        Carte carte43 = new Carte("Exploitation-Forestiere");
+
+        Carte carte44 = new Carte("Gisement");
+
+        Carte carte45 = new Carte("Mine");
+
+        Carte carte46 = new Carte("Scierie");
+
+        Carte carte47 = new Carte("Carriere");
+
+        Carte carte48 = new Carte("Briqueterie");
+
+        Carte carte49 = new Carte("Fonderie");
+
+
         mesCartes.add(carte1);
         mesCartes.add(carte2);
         mesCartes.add(carte3);

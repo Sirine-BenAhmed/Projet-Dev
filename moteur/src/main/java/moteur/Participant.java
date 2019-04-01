@@ -13,6 +13,7 @@ public class Participant {
     private String nom;
     private Merveille merveille;
     private Main main;
+    private Main mainPrecedente;
     private boolean Ajoue ;
 
 
@@ -66,5 +67,13 @@ public class Participant {
 
     public Main getMain() {
         return main;
+    }
+
+    public void setMainPrecedente(Main main) {
+        this.mainPrecedente = main;
+    }
+
+    public Main getMainPrecedente() {
+        return mainPrecedente;
     }
 }
