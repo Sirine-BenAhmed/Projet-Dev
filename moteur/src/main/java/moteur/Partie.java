@@ -37,8 +37,6 @@ public class Partie {
 
             @Override
             public void onConnect(SocketIOClient socketIOClient) {
-
-
                 System.out.println("serveur > connexion de "+socketIOClient.getRemoteAddress());
                 System.out.println("serveur > connexion de "+socketIOClient);
 
@@ -50,9 +48,6 @@ public class Partie {
                 }
             }
         });
-
-
-
         // réception de l'identification du joueur
         serveur.addEventListener(MESSAGES.MON_NOM, String.class, new DataListener<String>() {
             @Override
@@ -63,6 +58,7 @@ public class Partie {
                     System.out.println("serveur > identification de "+p.getNom()+" ("+socketIOClient.getRemoteAddress()+")");
                     if (tousIndentifiés()) {
                         débuterLeJeu();
+                        lancerNouveauTour();
                     }
                 }
             }
@@ -87,6 +83,9 @@ public class Partie {
                     if (tousJoues()){
                         changerMains();
                         prepareNouveauTours();
+                        if(p.getMain().getCartes().size()>1){
+                            lancerNouveauTour();
+                        }
                     }
                     // etc.
                 }
@@ -101,7 +100,6 @@ public class Partie {
 		merveilles[1] = new Merveille("Rhodes");
 		merveilles[2] = new Merveille("Halicarnassus");
 		merveilles[3] = new Merveille("Giza");
-
 		/*
 		merveilles[4] = new Merveille("Alexandria");
 		merveilles[5] = new Merveille("Olympia");
@@ -147,6 +145,9 @@ public class Partie {
 
     private boolean tousIndentifiés() {
         boolean resultat = true;
+        if(participants.size()!=CONFIG.NB_JOUEURS){
+            return false;
+        }
         for(Participant p : participants) {
             // pas nom, pas identifié
             if (p.getNom() == null) {
@@ -233,6 +234,14 @@ public class Partie {
     private void prepareNouveauTours(){
         for (Participant p : participants){
             p.setAjoue(false);
+        }
+    }
+
+    // permet de jouer un nouveau tour
+
+    private void lancerNouveauTour(){
+        for (Participant p:participants){
+            p.getSocket().sendEvent(MESSAGES.CEST_VOTRE_TOUR, p.getMain());
         }
     }
 

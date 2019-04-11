@@ -111,6 +111,34 @@ public class Joueur {
                     }
                 }
             });
+
+            connexion.on(MESSAGES.CEST_VOTRE_TOUR, new Emitter.Listener() {
+                @Override
+                public void call(Object... objects) {
+                    JSONObject mainJSON = (JSONObject)objects[0];
+                    try {
+                        Main m = new Main();
+                        // la main ne contient qu'une liste de carte, c'est un JSONArray
+                        JSONArray cartesJSON = mainJSON.getJSONArray("cartes");
+                        // on recrée chaque carte
+                        for(int j = 0 ; j < cartesJSON.length(); j++) {
+                            JSONObject carteJSON = (JSONObject) cartesJSON.get(j);
+                            Carte c = new Carte(carteJSON.getString("name"));
+                            m.ajouterCarte(c);
+                        }
+
+                        System.out.println("-------------------------------------------------------------------------------------------");
+                        System.out.println("------------------------------------TOUR_JOUEURS-----------------------------------");
+                        System.out.println("-------------------------------------------------------------------------------------------");
+                        System.out.println(nom+" > c'est mon tour "+m);
+                        jouer(m);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
         } catch (
         URISyntaxException e) {
             e.printStackTrace();
@@ -121,8 +149,11 @@ public class Joueur {
     private void jouer(Main m) {
         // ne fonctionne pas dans Android
         Random r = new Random();
-        int indiceCarte= r.nextInt(5);
-        JSONObject pieceJointe = new JSONObject(m.getCartes().get(0)) ;
+        int indiceCarte= r.nextInt(m.getCartes().size());
+        JSONObject carteAJouer = new JSONObject(m.getCartes().get(indiceCarte)) ;
+
+        //int indiceCarte= r.nextInt(m.getCartes().size());
+        //JSONObject carteAJouer = new JSONObject(m.getCartes().get(indiceCarte)) ;
 
         // dans Android, il faudrait faire :
         // JSONObject pieceJointe = new JSONObject();
@@ -132,10 +163,10 @@ public class Joueur {
         // modifi
 
         System.out.println("-------------------------------------------------------------------------------------------");
-        System.out.println("------------------------------------1er TOURS DE JEU------------------------------------------");
+        System.out.println("------------------------------------"+(8 - m.getCartes().size())+" TOURS DE JEU------------------------------------------");
         System.out.println("-------------------------------------------------------------------------------------------");
-        System.out.println(nom + " > je joue la carte  "+m.getCartes().get(0));
-        connexion.emit(MESSAGES.JE_JOUE, pieceJointe);
+        System.out.println(nom + " > Joue  "+carteAJouer.toString());
+        connexion.emit(MESSAGES.JE_JOUE, carteAJouer);
     }
 
     // methode pour defosser une carte
