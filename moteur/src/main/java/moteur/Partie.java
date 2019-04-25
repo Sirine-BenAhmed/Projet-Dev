@@ -20,6 +20,11 @@ public class Partie {
     private ArrayList<Participant> participants;
 
 
+    public void setParticipant(ArrayList<Participant> p) {
+    	this.participants = p;
+    }
+    public ArrayList<Participant> getParticipant(){return this.participants;}
+    
     public Partie() {
 
         // création du serveur (peut-être externalisée)
@@ -93,8 +98,10 @@ public class Partie {
         });
     }
 
-    private void débuterLeJeu() {
+    protected void débuterLeJeu() {
         // création des merveilles, au début de simples noms
+    	
+    
         Merveille[] merveilles = new Merveille[CONFIG.NB_JOUEURS];
         merveilles[0] = new Merveille("Babylon");//(name, side)
 		merveilles[1] = new Merveille("Rhodes");
@@ -114,6 +121,7 @@ public class Partie {
         System.out.println("-------------------------------------------------------------------------------------------");
         System.out.println("------------------------------------ENVOIE DES MERVEILLES---------------------------------");
         System.out.println("-------------------------------------------------------------------------------------------");
+        
         for(int i = 0; i < CONFIG.NB_JOUEURS; i++) {
 
 //           merveilles[i] = new Merveille("merveille"+i);
@@ -143,7 +151,7 @@ public class Partie {
 
     }
 
-    private boolean tousIndentifiés() {
+    public boolean tousIndentifiés() {
         boolean resultat = true;
         if(participants.size()!=CONFIG.NB_JOUEURS){
             return false;
@@ -159,7 +167,7 @@ public class Partie {
         return resultat;
     }
     // permet de verifier si tous les joueurs ont joués
-    private boolean tousJoues() {
+    public boolean tousJoues() {
         boolean resultat = true;
         for(Participant p : participants) {
             // pas joués, sort de la boucle
@@ -172,7 +180,7 @@ public class Partie {
         return resultat;
     }
     // permet de verifier si tous les joueurs ont récuperés leurs mains
-    private boolean tousRecusMerveille() {
+    protected boolean tousRecusMerveille() {
         boolean resultat = true;
         for(Participant p : participants) {
             // pas reçu de merveille, sort de la boucle
@@ -185,7 +193,7 @@ public class Partie {
         return resultat;
     }
     // verifier si tous ont récu leurs mains
-    private boolean tousRecusMain() {
+    protected boolean tousRecusMain() {
         boolean resultat = true;
         for(Participant p : participants) {
             // pas reçu de main, sort de la boucle
@@ -206,7 +214,7 @@ public class Partie {
 
     // passage de carte avec une carte en moins ===> issue N° 49
 
-    private void changerMains(){
+    protected void changerMains(){
 
         for (int i=0 ; i<participants.size(); i++){
             participants.get(i).setMainPrecedente(participants.get(i).getMain());
@@ -231,7 +239,7 @@ public class Partie {
     }
 
     // pour verifier avant le nouveau tour de jeu
-    private void prepareNouveauTours(){
+    protected void prepareNouveauTours(){
         for (Participant p : participants){
             p.setAjoue(false);
         }
@@ -239,7 +247,7 @@ public class Partie {
 
     // permet de jouer un nouveau tour
 
-    private void lancerNouveauTour(){
+    protected void lancerNouveauTour(){
         for (Participant p:participants){
             p.getSocket().sendEvent(MESSAGES.CEST_VOTRE_TOUR, p.getMain());
         }
@@ -251,7 +259,7 @@ public class Partie {
      * @param socketIOClient le client qui vient d'envoyer un message au serveur
      * @return le Participant correspondant à la socketIOClient
      */
-    private Participant retrouveParticipant(SocketIOClient socketIOClient) {
+    protected Participant retrouveParticipant(SocketIOClient socketIOClient) {
         Participant p = null;
 
         for(Participant part : participants) {

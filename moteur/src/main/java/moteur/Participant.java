@@ -17,6 +17,11 @@ public class Participant {
     private boolean Ajoue ;
 
 
+    public Participant(String nom) {
+    	
+    	this.nom = nom;
+    }
+    
     public boolean isAjoue() {
         return Ajoue;
     }
