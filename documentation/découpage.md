@@ -37,18 +37,30 @@ Au bout de la livraison 5:
 
 
 #####Livraison 6
+Au bout de la livraison 6:
+Création de 6 tours de jeu : 
+		Chaque joueur peut jouer un âge complet.
 
+Le jeu d'un tour a été optimisé : 
+		Maintenant les joueurs peuvent jouer n'importe quelle carte de leur main.
+		Avant, ils ne prenaient que la première carte du paquet.
+
+Il y a un suivi du nombre de tours effectués :
+		Le numéro du tour en cours est affiché.
+
+
+
+
+#####Livraison 7
+
+
+############################Reste à faire :
 ------> En tant que joueur, j'ai 3 écus en début de partie
 ------> En tant que joueur, je peux défosser une carte
 ------> En tant que joueur, je reçois 3 écus en défossant une carte
 ------> En tant que joueur, je possède une ressource grâce à mon plateau merveille
 ------> En tant que joueur, le nombre d'écus que je possède me rapporte des points
 ------> En tant que joueur, les bâtiments civils que je possède me rapportent des points
-
-
-
-#####Livraison 7
-
 -----> Construction merveille
 -----> Construction bâtiments (tous deux en fonction des ressources)
 ------> Conflits militaires
