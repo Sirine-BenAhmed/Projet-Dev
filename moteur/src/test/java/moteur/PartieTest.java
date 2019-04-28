@@ -37,8 +37,8 @@ public class PartieTest {
 
         for(int i=0; i< this.partie.getParticipant().size(); i++){
             assertNotNull(this.partie.getParticipant().get(i).getMerveille());
-        }
-        */
+        }*/
+
 
     }
 
